@@ -1,5 +1,6 @@
 <template>
-    <div class="goods-item">
+    <!--itemClick跳转至对应详情页-->
+    <div class="goods-item" @click="itemClick">
       <!-- @load事件，用来监听图片标签是否已经加载完成-->
       <img :src="goodItems.show.img" alt="" @load="imgFinish">
       <div class="goods-info">
@@ -25,6 +26,10 @@
       imgFinish(){
         // 通过事件总线传递出去图片已经加载成功信息
         this.$bus.$emit('imgFinish')
+      },
+      // 跳转详情页路由
+      itemClick(){
+        this.$router.push('/detail/' + this.goodItems.iid )
       }
     }
   }
