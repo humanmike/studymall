@@ -9,15 +9,18 @@
         <!--商品详情的描述样式根据class展示-->
         <div class="end"></div>
       </div>
-      <!--商品图片的描述-->
-      <div class="info-key">{{shopDetailInfo.detailImage[0].key}}</div>
-      <!--商品图片-->
-      <div class="info-list">
-        <img v-for="(item,index) in shopDetailInfo.detailImage[0].list"
-             :key="index"
-             :src="item"
-             alt=""
-             @load="detailImgLoad">
+
+      <div v-for="item in shopDetailInfo.detailImage">
+        <!--商品图片的描述-->
+        <div class="info-key">{{item.key}}</div>
+        <!--商品图片-->
+        <div class="info-list">
+          <img v-for="(info,index) in item.list"
+               :src="info"
+               alt=""
+               :key="index"
+               @load="detailImgLoad">
+        </div>
       </div>
     </div>
 </template>

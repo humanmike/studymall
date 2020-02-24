@@ -3,10 +3,17 @@ import {request} from "./request"
 // 详情页数据请求
 export function getDetail(iid) {
   return request({
-    url: 'http://106.54.54.237:8000/api/hy/detail',
+    url: '/detail',
     params: {
       iid
     }
+  })
+}
+
+// 获取推荐商品接口
+export function getRecommend() {
+  return request({
+    url: '/recommend',
   })
 }
 

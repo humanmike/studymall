@@ -1,7 +1,7 @@
 <template>
     <div v-if="Object.keys(goods).length != 0" class="base-info">
         <!--设置标题-->
-        <div class="title-info">{{goods.title}}</div>
+        <div class="info-title">{{goods.title}}</div>
         <div class="info-price">
           <!--新价格-->
           <span class="n-price">{{goods.newPrice}}</span>

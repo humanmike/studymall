@@ -6,14 +6,14 @@ import {request} from "./request"
 // 获取导航栏数据
 export function getHomeMultidata() {
   return request({
-    url: '/api/hy/home/multidata'
+    url: '/home/multidata'
   })
 }
 
 // 获取首页货品数据
 export function getHomeGoods(type, page) {
   return request({
-    url: '/api/hy/home/data',
+    url: '/home/data',
     params:{
       type, page
     }

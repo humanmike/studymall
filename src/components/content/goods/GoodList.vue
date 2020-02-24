@@ -17,8 +17,9 @@
         default(){
           return []
         }
-      }
+      },
     },
+
     components: {
       goodItem
     }

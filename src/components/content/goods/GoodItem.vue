@@ -2,7 +2,7 @@
     <!--itemClick跳转至对应详情页-->
     <div class="goods-item" @click="itemClick">
       <!-- @load事件，用来监听图片标签是否已经加载完成-->
-      <img :src="goodItems.show.img" alt="" @load="imgFinish">
+      <img :src="showImg" alt="" @load="imgFinish">
       <div class="goods-info">
         <p>{{goodItems.title}}</p>
         <span class="price">价格: {{goodItems.price}}</span>
@@ -25,13 +25,20 @@
     methods: {
       imgFinish(){
         // 通过事件总线传递出去图片已经加载成功信息
-        this.$bus.$emit('imgFinish')
+        this.$bus.$emit('img-finish')
       },
       // 跳转详情页路由
       itemClick(){
         this.$router.push('/detail/' + this.goodItems.iid )
       }
-    }
+    },
+    computed:{
+      // 考虑到有Detail组件和Home组件都使用了这个数据展示，所以此处需要对传入来的两个对象数据进行判断
+      showImg(){
+        if(this.goodItems.hasOwnProperty('show')) return this.goodItems.show.img
+        return this.goodItems.image
+      }
+    },
   }
 </script>
 

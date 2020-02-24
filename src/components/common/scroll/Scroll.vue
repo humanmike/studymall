@@ -59,7 +59,7 @@
       })
       this.scroll.on('scroll', (position) => {
         // 把滚动对象传出父组件，供外部组件调用
-        this.$emit('scroll', position)
+        this.$emit('scroll-control', position)
       })
 
       this.scroll.on('pullingUp',() =>{
@@ -81,6 +81,7 @@
       },
       refreshScroll(){
         this.scroll && this.scroll.refresh()
+        console.log('--');
       },
       getScrollY(){
         return this.scroll ? this.scroll.y : 0

@@ -40,6 +40,9 @@
       // 导航栏点击
       itemClick(index){
         this.currentIndex = index
+        // 把索引值传出供外部父组件调用
+        this.$emit('detail-item-click',index)
+
       },
       // 返回上一页点击
       itemClickBack(){

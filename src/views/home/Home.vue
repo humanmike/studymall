@@ -15,7 +15,7 @@
       <!-- @scroll="scrollControl" 使用函数来获取内部组件的传递-->
       <scroll class="content" ref="scroll"
               :clickOption="true" :probeTypeOption="3" :pullUpLoadOption="true"
-              @scroll="scrollControl" @pulling-up="loadMore">
+              @scroll-control="scrollControl" @pulling-up="loadMore">
         <!--轮播图-->
         <!-- 根据子组件自定义传出确定图片是否加载完成-->
         <home-swiper :banners="banners" @swiper-image-load="swiperImageLoad"></home-swiper>
@@ -68,10 +68,12 @@
 
   // 工具类
   // 导入防抖函数
-  import {debounce} from 'common/util'
+  import {itemImgListenerMixin} from 'common/mixin'
 
   export default {
     name: "Home",
+    // 导入mixin公共对象
+    mixins: [itemImgListenerMixin],
     data(){
       return {
         // 导航栏数据
@@ -130,19 +132,6 @@
     },
     //mounted:在模板渲染成html后调用，通常是初始化页面完成后，再对html的dom节点进行一些需要的操作。
     mounted() {
-
-      // 获取 防抖动函数对象
-      const refresh = debounce(this.$refs.scroll.refreshScroll,200)
-
-      // 监听图片加载完成刷新scroll对象
-      // 当gooditem组件的传递出来imgFinish后就以为着1张图片加载成功就刷新1次
-      // 来多少张图片就刷新多少次
-      this.$bus.$on('imgFinish', () => {
-        // 执行防抖动对象
-        refresh()
-      })
-
-
     },
     // 添加Keep-alive标签才可以使用
     activated(){
@@ -155,6 +144,10 @@
       // 路由离开时记录y轴标签
       this.scrollY = this.$refs.scroll.getScrollY()
 
+      // 因为此处是keep-alive下,所以使用该Key来暂停事件监听
+      // 路由离开的时候当不去当前路由的事件总线的图片加载
+      // 传入两个参数 1.事件总线传递出来的对象，2.当前执行传递出来对象的对应函数对象
+      this.$bus.$off('imgFinish', this.itemRefresh)
     },
     methods:{
       // 1.事件监听
