@@ -22,7 +22,7 @@
         <good-list :goods="recommendInfo" ref="detailGoodList"></good-list>
       </scroll>
       <!--底部导航栏-->
-      <detail-bottom-bar></detail-bottom-bar>
+      <detail-bottom-bar @add-shop-cart="detailAddShopCart"></detail-bottom-bar>
       <!--这里back-top组件,tabTopType值,backClick函数来自Mixin-->
       <back-top v-show="tabTopType" @click.native="backClick"></back-top>
     </div>
@@ -135,7 +135,6 @@
           // 获取轮播图数据
           const data = res.result
           this.topImages = data.itemInfo.topImages
-
           // 整理相关信息
           const itemInfo = data.itemInfo
           const columns = data.columns
@@ -153,7 +152,6 @@
 
           // 获取整理好的商品明细(商品参数)信息
           this.goodsParamInfo = new GoodsParam(data.itemParams.info,data.itemParams.rule)
-
           // 获取评论信息
           // 有些商品可能没有评论数据，所以获取的时候先判断下
           if(rate.cRate != 0){
@@ -204,6 +202,24 @@
             this.$refs.detailNav.currentIndex = this.scrollCurrentIndex
           }
         }
+      },
+
+      // 添加购物车
+      detailAddShopCart(){
+        // 从data中获取该商品的信息传递给vuex
+        const product = {}
+        // 把对应商品数据加了的对象中
+        // 原本应该是从这个接口获取数据，但是因为这里有时候返回不到所以从轮播图获取
+        // product.image = this.goodsParamInfo.image
+        product.image = this.topImages[0]
+        product.title = this.goods.title
+        product.desc = this.goods.desc
+        product.price = this.goods.realPrice
+        product.iid = this.iid
+
+        // 传递给vuex的actions中去做复杂或者异步操作
+        this.$store.dispatch('optionAddShopCart',product)
+
       }
     },
     destroyed() {

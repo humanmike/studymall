@@ -15,14 +15,22 @@
       </div>
     </div>
     <div class="bar-item bar-right">
-      <div class="cart" >加入购物车</div>
+      <div class="cart" @click="addShopCart">加入购物车</div>
       <div class="buy">购买</div>
     </div>
-  </div></template>
+  </div>
+</template>
 
 <script>
   export default {
-    name: "DetailBottomBar"
+    name: "DetailBottomBar",
+    methods:{
+      // 添加购物车
+      addShopCart(){
+        // 把用户点击购物车的操作告诉父组件
+        this.$emit('add-shop-cart')
+      }
+    }
   }
 </script>
 

@@ -21,6 +21,8 @@ export function getRecommend() {
 // 商品信息
 export class Goods{
   constructor(itemInfo,columns,shopInfo){
+    // 商品简述
+    this.desc = itemInfo.desc
     // 商品标题
     this.title = itemInfo.title
     // 现价格
@@ -61,7 +63,7 @@ export class GoodsParam{
 
   constructor(info, rule){
     // 这个数据有时候可能没有值，所以没有的时候返回一个''
-    this.image = info.images ? info.images[0] : 0
+    this.image = info.images ? info.images[0] : ''
     this.infos = info.set
     this.sizes = rule.tables
 

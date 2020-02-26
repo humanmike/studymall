@@ -1,6 +1,6 @@
 <template>
   <swiper>
-    <swiper-item v-for="item in banners">
+    <swiper-item v-for="(item,index) in banners" :key="index">
       <a :href="item.link">
         <!--
         监听该load来待该图片加载完成后获取首页选项(tabControl)的高度，

@@ -27,7 +27,6 @@ export const itemImgListenerMixin = {
 }
 
 // 回到顶部按钮mixin
-
 // 导入回到顶部组件
 import backTop from 'components/content/backtop/BackTop'
 export const backTopMixin ={

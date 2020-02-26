@@ -135,10 +135,11 @@
     },
     // 添加Keep-alive标签才可以使用
     activated(){
-      // 回到路由时跳转至对应坐标
-      this.$refs.scroll.backTo(0,this.scrollY,0)
       // 刷新一下scroll对象保证其坐标准确
       this.$refs.scroll.refreshScroll()
+      // 回到路由时跳转至对应坐标
+      this.$refs.scroll.backTo(0,this.scrollY,0)
+
     },
     deactivated(){
       // 路由离开时记录y轴标签
@@ -188,13 +189,11 @@
       loadMore(){
         this.getHomeGoods(this.currentTabType)
         this.$refs.scroll.finishPullUp()
-        console.log('更新数据成功');
       },
       // 确定图片是否加载成来获取tab-control高度
       swiperImageLoad(){
         // 记录高度到Home组件中
         this.tabTopOffsetTop = this.$refs.tabControlSecond.$el.offsetTop
-        console.log(this.$refs.tabControlSecond.$el.offsetTop);
       },
       // 2.封装网络请求方法，不在created函数内处理过多逻辑
       // 请求导航栏，推荐栏数据
