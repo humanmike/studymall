@@ -1,6 +1,6 @@
 <template>
     <div class="bottom-menu">
-      <check-button class="select-all"></check-button>
+      <check-button class="select-all" :isCheck="cartSelect" @click.native="clickSelectAll"></check-button>
       <span>全选</span>
       <span class="total-price">合计: ¥{{totalPrice}}</span>
       <span class="buy-product">去计算({{getCartCount}})</span>
@@ -31,8 +31,31 @@
       // 共选择购买个数
       getCartCount(){
         return this.shopCartData.filter(n => n.isCheck == true).length == 0 ? 0 : this.shopCartData.filter(n => n.isCheck == true).length
+      },
+      // 判断购物车内的单选是否全勾
+      cartSelect(){
+        // 未选中的清空有三个状态
+        // 1.当什么都没有的时候加入购物车的时候应该返回false
+        if (this.shopCartData.length == 0) return false
+        // 这里判断两种状态,
+        // 2.只要有一个isChecked返回False就直接返回True然后取反
+        // 3.如果都没有返回False意味着没有就返回False然后取反
+        return !(this.shopCartData.find(n => n.isCheck == false))
+
       }
 
+    },
+    methods:{
+      // 全选按钮点击
+      clickSelectAll(){
+        // 根据计算属性cartSelect的值来判断，如果是true证明就已经是全选了修改成false
+        if (this.cartSelect) {
+          return this.shopCartData.forEach(n => n.isCheck = false)
+        }else {
+          // 只要有部分没选那就是false全部改成true
+          return this.shopCartData.forEach(n => n.isCheck = true)
+        }
+      }
     }
 
   }

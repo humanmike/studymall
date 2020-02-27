@@ -61,6 +61,9 @@
   // 网络请求导入
   import {getDetail,getRecommend,Goods,Shop,GoodsParam} from "network/Detail"
 
+  // 导入vuex辅助函数来做actions内容映射
+  import {mapActions} from 'vuex'
+
   export default {
 
     name: "Detail",
@@ -128,6 +131,8 @@
       },100)
     },
     methods: {
+      // 0.导入vuex辅助函数
+      ...mapActions(['optionAddShopCart']),
       // 1.发送网络请求
       // 获取详情页轮播图和服装展示数据
       getDetail(){
@@ -218,7 +223,11 @@
         product.iid = this.iid
 
         // 传递给vuex的actions中去做复杂或者异步操作
-        this.$store.dispatch('optionAddShopCart',product)
+        // 因为使用了new Promise所以可以直接调用then方法来知道函数到底有没有执行成功
+        // 这个是正常调用
+        // this.$store.dispatch('optionAddShopCart',product).then(resolve => console.log(resolove))
+        // 也可以使用辅助函数(mapActions)来做映射
+        this.optionAddShopCart(product).then(resolve => this.$toast.showToast(resolve))
 
       }
     },

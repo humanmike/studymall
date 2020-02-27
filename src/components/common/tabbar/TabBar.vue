@@ -14,8 +14,9 @@
   .tab-bar {
     display: flex;
     background-color: #f6f6f6;
-
     position: fixed;
+    /*添加这个值就可以在购物车中点击*/
+    z-index: 9;
     left: 0;
     right: 0;
     bottom: 0;
